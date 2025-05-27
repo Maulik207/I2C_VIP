@@ -42,7 +42,7 @@ endclass: i2c_test
     //-------------------------------------------
     function void i2c_test::build_phase(uvm_phase phase);
         super.build_phase(phase);
-	    `uvm_info(get_type_name(),"Inside build_phase",UVM_LOW)    
+	`uvm_info(get_type_name(),"Inside build_phase",UVM_LOW)    
         
         env_h = i2c_environment::type_id::create("env_h",this);
         base_seq_h = i2c_base_sequence::type_id::create("base_seq_h");
@@ -53,7 +53,7 @@ endclass: i2c_test
         rd_wr_seq_h = i2c_rd_wr_sequence :: type_id :: create ("rd_wr_seq_h");
         env_config_h = i2c_env_config::type_id::create("env_config_h");
 
-	    uvm_config_db#(i2c_env_config)::set(null,"*","env_config_h",env_config_h);
+	uvm_config_db#(i2c_env_config)::set(null,"*","env_config_h",env_config_h);
     endfunction
 
     //-------------------------------------------
@@ -62,7 +62,6 @@ endclass: i2c_test
     function void i2c_test::end_of_elaboration_phase(uvm_phase phase);
         super.end_of_elaboration_phase(phase);
         `uvm_info(get_type_name(),"Inside end_of_elaboaration_phase()", UVM_LOW)
-        
         uvm_top.print_topology();
     endfunction
 
