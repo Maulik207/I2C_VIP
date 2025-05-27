@@ -5,12 +5,12 @@
 //-------------------------------------READ SEQUENCE-----------------------------------------//
 class i2c_read_sequence extends i2c_base_sequence;
 
-	`uvm_object_utils(i2c_read_sequence)
+    `uvm_object_utils(i2c_read_sequence)
     //typedef uvm_object_registry#(i2c_read_sequence,"i2c_read_sequence")type_id;
 	
-	function new(string name = "i2c_read_sequence");
+    function new(string name = "i2c_read_sequence");
         super.new(name);
-	endfunction
+    endfunction
     
     task body();
         i2c_mseq_item trans;
@@ -22,13 +22,15 @@ class i2c_read_sequence extends i2c_base_sequence;
 
         trans = i2c_mseq_item::type_id::create("trans");
 
-        /*
+        //////////////////////////////METHOD-1/////////////////////////////////
+	/*
         begin
             $display("i2c_read_sequence");
             `uvm_do_with(req,{req.rd_wr==1'b1; req.slv_addr==7'h6f; req.size_while_read_write==5; req.repeated_start==1'b0;})    
         end
         */
-      
+
+	///////////////////////////////METHOD-2////////////////////////////////////
         begin
             $display("Inside i2c_read_sequence");
             start_item(trans);  //will not work with the 'req'....will work in the uvm_do and etc, because does the task internally like create()
@@ -127,6 +129,7 @@ class i2c_rd_wr_sequence extends i2c_base_sequence;
         bit [6:0] randomized_slv_addr;
         int wr_size, rd_size;
 
+	/*
         assert(std::randomize(wr_size,rd_size) with {
             wr_size inside {[1:5]};
             rd_size inside {[1:5]};
@@ -134,10 +137,12 @@ class i2c_rd_wr_sequence extends i2c_base_sequence;
         });
 
         $display("read size : %0d | write size : %0d", rd_size, wr_size);
+	*/
 
         //randomize 'only' the slv_addr variable 
         assert(std::randomize(randomized_slv_addr));
-        
+        $display("Generated slave address is %0h", randomized_slv_addr); 
+	    
         trans = i2c_mseq_item::type_id::create("trans");
         /*
         begin
@@ -193,12 +198,14 @@ class i2c_wr_rd_sequence extends i2c_base_sequence;
         int wr_size, rd_size;
 
         //Randomize such that wr_size > rd_size
+	/*
         assert(std::randomize(wr_size,rd_size) with {
             wr_size inside {[1:5]};
             rd_size inside {[1:5]};
             wr_size == rd_size;
         });
         $display("write size : %0d | read size : %0d", wr_size, rd_size);
+	*/
 
         //randomize 'only' the slv_addr variable 
         assert(std::randomize(randomized_slv_addr));
