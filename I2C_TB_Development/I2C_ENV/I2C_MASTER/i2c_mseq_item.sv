@@ -11,15 +11,15 @@ class i2c_mseq_item extends uvm_sequence_item;
     //-------------------------------------------
     //declare variables
     //-------------------------------------------
-  	rand bit [6:0]  slv_addr; 
-  	rand bit rd_wr;
-  	rand bit [7:0] data[$];
+    rand bit [6:0]  slv_addr; 
+    rand bit rd_wr;
+    rand bit [7:0] data[$];
     rand bit repeated_start;
     rand int size_while_read_write;    
 
-	//-------------------------------------------
+    //-------------------------------------------
     //constructor
-  	//-------------------------------------------
+    //-------------------------------------------
     function new(string name = "i2c_mseq_item");
         super.new(name);
     endfunction
@@ -43,16 +43,16 @@ class i2c_mseq_item extends uvm_sequence_item;
     endfunction
     */
     
-  	//--------------------------------------------------
-  	//factory registration
-  	//--------------------------------------------------
+    //--------------------------------------------------
+    //factory registration
+    //--------------------------------------------------
     `uvm_object_utils_begin(i2c_mseq_item)
     	`uvm_field_int(slv_addr,UVM_ALL_ON)
     	`uvm_field_int(rd_wr,UVM_ALL_ON)
     	`uvm_field_queue_int(data,UVM_ALL_ON) //queue
         `uvm_field_int(repeated_start,UVM_ALL_ON)
         `uvm_field_int(size_while_read_write,UVM_ALL_ON)
-  	`uvm_object_utils_end
+    `uvm_object_utils_end
 
     constraint slave_address { slv_addr > 0; }
     constraint data_size     { data.size() inside {[1:5]}; } 
