@@ -1,4 +1,4 @@
-# I2c_VIP
+# I2C_VIP
 Verification of the I2C Protocol with UVM
 In this project, I completed the basic communication between a single master and a single slave using 7-bit addressing mode in standard mode.
 I'm still working on the VIP, making the necessary adjustments and trying to make it more modular and reusable.
